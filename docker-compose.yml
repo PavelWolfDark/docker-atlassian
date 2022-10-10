@@ -1,0 +1,74 @@
+version: '3.9'
+services:
+  jira-core:
+    build:
+      context: .
+      args:
+        - PRODUCT=jira-core
+        - JIRA_CORE_VERSION=9.3.0
+      target: deploy
+    container_name: jira-core
+    ports:
+      - '8080:8080'
+    volumes:
+      - jira/data:/var/atlassian/application-data/jira
+  jira-software:
+    build:
+      context: .
+      args:
+        - PRODUCT=jira-software
+        - JIRA_SOFTWARE_VERSION=9.3.0
+      target: deploy
+    container_name: jira-software
+    ports:
+      - '8080:8080'
+    volumes:
+      - jira/data:/var/atlassian/application-data/jira
+  jira-service-management:
+    build:
+      context: .
+      args:
+        - PRODUCT=jira-service-management
+        - JIRA_SERVICE_MANAGEMENT_VERSION=5.3.0
+      target: deploy
+    container_name: jira-service-management
+    ports:
+      - '8080:8080'
+    volumes:
+      - jira/data:/var/atlassian/application-data/jira
+  confluence:
+    build:
+      context: .
+      args:
+        - PRODUCT=confluence
+        - CONFLUENCE_VERSION=7.20.0
+      target: deploy
+    container_name: confluence
+    ports:
+      - '8090:8090'
+    volumes:
+      - confluence/data:/var/atlassian/application-data/confluence
+  bamboo:
+    build:
+      context: .
+      args:
+        - PRODUCT=bamboo
+        - BAMBOO_VERSION=9.0.1
+      target: deploy
+    container_name: bamboo
+    ports:
+      - '8085:8085'
+    volumes:
+      - bamboo/data:/var/atlassian/application-data/bamboo
+  bitbucket:
+    build:
+      context: .
+      args:
+        - PRODUCT=bitbucket
+        - BITBUCKET_VERSION=8.4.1
+      target: deploy
+    container_name: bitbucket
+    ports:
+      - '7990:7990'
+    volumes:
+      - bitbucket/data:/var/atlassian/application-data/bitbucket
